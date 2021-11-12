@@ -8,13 +8,13 @@ metadata:
   namespace: student4-bookinfo-dev
 spec:
   rules:
-  - host: sitkmutt.bookinfo.dev.opsta.net
+  - host: {{ .Values.ingress.host }}
     http:
       paths:
-      - path: /student4/ratings(/|$)(.*)
+      - path: {{ .Values.ingress.path }}
         pathType: Prefix
         backend:
           service:
             name: bookinfo-dev-ratings
             port:
-              number: 8080
+              number: {{ .Values.ratings.port }}

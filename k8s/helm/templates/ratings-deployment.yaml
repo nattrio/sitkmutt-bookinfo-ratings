@@ -2,11 +2,11 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: bookinfo-dev-ratings
-  namespace: student4-bookinfo-dev
+  namespace: {{ .Values.ratings.namespace }}
   labels:
     app: bookinfo-dev-ratings
 spec:
-  replicas: 1
+  replicas: {{ .Values.ratings.replicas }}
   selector:
     matchLabels:
       app: bookinfo-dev-ratings
@@ -17,7 +17,7 @@ spec:
     spec:
       containers:
       - name: bookinfo-dev-ratings
-        image: ghcr.io/nattrio/bookinfo-ratings:dev
+        image: {{ .Values.ratings.image }}:{{ .Values.ratings.tag }}
         imagePullPolicy: Always
         env:
         - name: SERVICE_VERSION
@@ -32,4 +32,4 @@ spec:
               name: bookinfo-dev-ratings-mongodb-secret
               key: mongodb-password
       imagePullSecrets:
-      - name: registry-bookinfo
+      - name: {{ .Values.ratings.imagePullSecrets }}

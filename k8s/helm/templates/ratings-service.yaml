@@ -4,8 +4,8 @@ metadata:
   name: bookinfo-dev-ratings
   namespace: student4-bookinfo-dev
 spec:
-  type: ClusterIP
+  type: {{ .Values.ingress.serviceType }}
   ports:
-  - port: 8080
+  - port: {{ .Values.ratings.port }}
   selector:
     app: bookinfo-dev-ratings
